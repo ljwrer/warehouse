@@ -21,7 +21,7 @@ export class IngredientsService {
     const foundIngredients = mongo.findOne({
       id,
     });
-    return getMongoRepository(IngredientsEntity).save(
+    return mongo.save(
       new IngredientsEntity({
         ...ingredientsDto,
         ...foundIngredients,
