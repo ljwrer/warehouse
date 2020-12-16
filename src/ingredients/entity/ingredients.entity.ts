@@ -1,6 +1,6 @@
 import { Column, Entity, ObjectIdColumn } from 'typeorm';
-import { Channel } from '../dto/ingredients.dto';
 import { Unit } from '../enum/ingredients.enum';
+import { Channel } from '../interface/ingredients.interface';
 @Entity({
   name: 'ingredients',
   orderBy: {

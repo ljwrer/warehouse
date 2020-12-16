@@ -1,10 +1,5 @@
 import { Unit } from '../enum/ingredients.enum';
-
-export interface Channel {
-  name: string;
-  price: number;
-  url?: string;
-}
+import { Channel } from '../interface/ingredients.interface';
 
 export interface IngredientsDto {
   readonly id: string;
