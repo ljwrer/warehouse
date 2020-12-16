@@ -1,8 +1,13 @@
-import { Column, ObjectIdColumn } from 'typeorm';
-import { Channel, IngredientsDto } from '../dto/ingredients.dto';
+import { Column, Entity, ObjectIdColumn } from 'typeorm';
+import { Channel } from '../dto/ingredients.dto';
 import { Unit } from '../enum/ingredients.enum';
-
-export class IngredientsEntity implements IngredientsDto {
+@Entity({
+  name: 'ingredients',
+  orderBy: {
+    createdAt: 'ASC',
+  },
+})
+export class IngredientsEntity {
   @ObjectIdColumn()
   id: string;
 
