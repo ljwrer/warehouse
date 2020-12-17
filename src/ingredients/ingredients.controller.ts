@@ -4,20 +4,20 @@ import { IngredientsService } from './ingredients.service';
 
 @Controller('ingredients')
 export class IngredientsController {
-  constructor(private readonly appService: IngredientsService) {}
+  constructor(private readonly ingredientsService: IngredientsService) {}
 
   @Get()
   findAll() {
-    return this.appService.getAll();
+    return this.ingredientsService.getAll();
   }
 
   @Post()
   async create(@Body() ingredientsDto: IngredientsDto) {
-    return this.appService.insert(ingredientsDto);
+    return this.ingredientsService.insert(ingredientsDto);
   }
 
   @Put()
   async update(@Body() ingredientsDto: IngredientsDto) {
-    return this.appService.update(ingredientsDto);
+    return this.ingredientsService.update(ingredientsDto);
   }
 }
