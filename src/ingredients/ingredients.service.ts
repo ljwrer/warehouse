@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { getMongoRepository } from 'typeorm';
 import { IngredientsDto } from './dto/ingredients.dto';
 import { IngredientsEntity } from './entity/ingredients.entity';
@@ -9,10 +9,19 @@ export class IngredientsService {
     return getMongoRepository(IngredientsEntity).find();
   }
 
-  insert(ingredientsDto: IngredientsDto) {
-    return getMongoRepository(IngredientsEntity).save(
-      new IngredientsEntity(ingredientsDto),
-    );
+  async insert(ingredientsDto: IngredientsDto) {
+    console.log(ingredientsDto);
+    const { name } = ingredientsDto;
+    console.log(name);
+    const mongo = getMongoRepository(IngredientsEntity);
+    const existIngredients = await mongo.findOne({
+      name,
+    });
+    console.log(existIngredients);
+    if (existIngredients) {
+      throw new ConflictException('ingredients name exist');
+    }
+    return mongo.save(new IngredientsEntity(ingredientsDto));
   }
 
   update(ingredientsDto: IngredientsDto) {
