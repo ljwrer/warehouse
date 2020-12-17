@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { IngredientsDto } from './dto/ingredients.dto';
 import { IngredientsService } from './ingredients.service';
 
@@ -16,7 +16,7 @@ export class IngredientsController {
     return this.appService.insert(ingredientsDto);
   }
 
-  @Post()
+  @Put()
   async update(@Body() ingredientsDto: IngredientsDto) {
     return this.appService.update(ingredientsDto);
   }

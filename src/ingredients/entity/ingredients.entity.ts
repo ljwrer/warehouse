@@ -1,4 +1,4 @@
-import { Column, Entity, ObjectIdColumn } from 'typeorm';
+import { Column, Entity, ObjectIdColumn, Unique } from 'typeorm';
 import { Unit } from '../enum/ingredients.enum';
 import { Channel } from '../interface/ingredients.interface';
 @Entity({
@@ -7,6 +7,7 @@ import { Channel } from '../interface/ingredients.interface';
     createdAt: 'ASC',
   },
 })
+@Unique(['name'])
 export class IngredientsEntity {
   @ObjectIdColumn()
   id: string;

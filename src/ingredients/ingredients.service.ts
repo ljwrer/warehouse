@@ -1,4 +1,4 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { getMongoRepository } from 'typeorm';
 import { IngredientsDto } from './dto/ingredients.dto';
 import { IngredientsEntity } from './entity/ingredients.entity';
@@ -10,30 +10,25 @@ export class IngredientsService {
   }
 
   async insert(ingredientsDto: IngredientsDto) {
-    console.log(ingredientsDto);
-    const { name } = ingredientsDto;
-    console.log(name);
-    const mongo = getMongoRepository(IngredientsEntity);
-    const existIngredients = await mongo.findOne({
-      name,
-    });
-    console.log(existIngredients);
-    if (existIngredients) {
-      throw new ConflictException('ingredients name exist');
-    }
-    return mongo.save(new IngredientsEntity(ingredientsDto));
+    return getMongoRepository(IngredientsEntity).save(
+      new IngredientsEntity(ingredientsDto),
+    );
   }
 
-  update(ingredientsDto: IngredientsDto) {
+  async update(ingredientsDto: IngredientsDto) {
     const { id } = ingredientsDto;
+    if (!id) {
+      throw new NotFoundException('id is empty');
+    }
     const mongo = getMongoRepository(IngredientsEntity);
-    const foundIngredients = mongo.findOne({
-      id,
-    });
+    const foundIngredients = await mongo.findOne(id);
+    if (!foundIngredients) {
+      throw new NotFoundException("ingredients doesn't exist");
+    }
     return mongo.save(
       new IngredientsEntity({
-        ...ingredientsDto,
         ...foundIngredients,
+        ...ingredientsDto,
       }),
     );
   }
