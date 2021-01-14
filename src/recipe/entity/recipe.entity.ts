@@ -1,13 +1,12 @@
 import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm'
-import { Unit } from '../enum/ingredients.enum'
 @Entity({
-  name: 'ingredients',
+  name: 'recipe',
   orderBy: {
     createdAt: 'ASC',
   },
 })
 @Unique(['name'])
-export class IngredientsEntity {
+export class RecipeEntity {
   @PrimaryGeneratedColumn()
   id: string
 
@@ -15,13 +14,11 @@ export class IngredientsEntity {
   name: string
 
   @Column()
-  unit: Unit
+  url: string
 
-  @Column({ default: false })
-  isSeasoning: boolean
-
+  // markdown
   @Column()
-  period: number
+  text: string
 
   @Column()
   createdAt: number
@@ -29,7 +26,7 @@ export class IngredientsEntity {
   @Column()
   updatedAt: number
 
-  constructor(partial: Partial<IngredientsEntity>) {
+  constructor(partial: Partial<RecipeEntity>) {
     if (partial) {
       Object.assign(this, partial)
       const now = Date.now()

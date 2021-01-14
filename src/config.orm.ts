@@ -15,6 +15,6 @@ const orm = {
   production: {
     url: '',
   },
-};
+}
 
-export default orm.development;
+export default orm.development

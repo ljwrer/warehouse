@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TypeormService } from './config/typeorm';
-import { IngredientsModule } from './ingredients/ingredients.module';
+import { Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+import { TypeormService } from './config/typeorm'
+import { IngredientsModule } from './ingredients/ingredients.module'
 
 @Module({
   imports: [
