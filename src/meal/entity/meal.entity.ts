@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { MealType } from '../enum/menu.enum'
+import { MealStatus, MealType } from '../enum/menu.enum'
 @Entity({
   name: 'meal',
   orderBy: {
@@ -21,6 +21,9 @@ export class MealEntity {
 
   @Column()
   type: MealType
+
+  @Column()
+  status: MealStatus
 
   @CreateDateColumn()
   createAt: Date
