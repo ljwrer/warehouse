@@ -1,4 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 
 @Entity({
   name: 'recipe-ingredients',
@@ -19,18 +25,9 @@ export class RecipeEntity {
   @Column()
   amount: number
 
-  @Column()
-  createdAt: number
+  @CreateDateColumn()
+  createAt: Date
 
-  @Column()
-  updatedAt: number
-
-  constructor(partial: Partial<RecipeEntity>) {
-    if (partial) {
-      Object.assign(this, partial)
-      const now = Date.now()
-      this.createdAt = this.createdAt ?? now
-      this.updatedAt = now
-    }
-  }
+  @UpdateDateColumn()
+  updatedAt: Date
 }
