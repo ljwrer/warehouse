@@ -10,6 +10,7 @@ services:
       MYSQL_ROOT_PASSWORD: root #root管理员用户密码
       MYSQL_USER: test   #创建test用户
       MYSQL_PASSWORD: test  #设置test用户的密码
+      MYSQL_DATABASE: ware
     ports:
       - '3307:3306'  #host物理直接映射端口为3306
     volumes:
