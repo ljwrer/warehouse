@@ -14,19 +14,19 @@ import {
 })
 export class RecipeEntity {
   @PrimaryGeneratedColumn()
-  id: string
+  id: number
 
   @Column()
-  recipeId: string
+  recipeId: number
 
   @Column()
-  ingredientsId: string
+  ingredientsId: number
 
   @Column()
   amount: number
 
   @CreateDateColumn()
-  createAt: Date
+  createdAt: Date
 
   @UpdateDateColumn()
   updatedAt: Date

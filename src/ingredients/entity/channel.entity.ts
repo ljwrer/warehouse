@@ -3,34 +3,37 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  Unique,
   UpdateDateColumn,
 } from 'typeorm'
 @Entity({
   name: 'channel',
   orderBy: {
-    createdAt: 'ASC',
+    updatedAt: 'DESC',
   },
 })
-@Unique(['name'])
 export class ChannelEntity {
   @PrimaryGeneratedColumn()
-  id: string
+  id: number
 
   @Column()
   name: string
 
-  @Column()
+  @Column({
+    type: 'decimal',
+    precision: 19,
+    scale: 2,
+    default: 0,
+  })
   price: number
 
-  @Column()
+  @Column({ default: '' })
   url: string
 
   @Column()
-  ingredientsId: string
+  ingredientsId: number
 
   @CreateDateColumn()
-  createAt: Date
+  createdAt: Date
 
   @UpdateDateColumn()
   updatedAt: Date

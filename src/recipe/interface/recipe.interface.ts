@@ -1,7 +1,7 @@
 import { Unit } from '../../ingredients/enum/ingredients.enum'
 
 export interface RecipeIngredients {
-  id: string
+  id: number
   amount: number
 }
 

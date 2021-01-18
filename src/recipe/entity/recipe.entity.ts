@@ -15,7 +15,7 @@ import {
 @Unique(['name'])
 export class RecipeEntity {
   @PrimaryGeneratedColumn()
-  id: string
+  id: number
 
   @Column()
   name: string
@@ -28,7 +28,7 @@ export class RecipeEntity {
   text: string
 
   @CreateDateColumn()
-  createAt: Date
+  createdAt: Date
 
   @UpdateDateColumn()
   updatedAt: Date

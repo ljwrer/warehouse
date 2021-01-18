@@ -14,7 +14,7 @@ import { MealStatus, MealType } from '../enum/menu.enum'
 })
 export class MealEntity {
   @PrimaryGeneratedColumn()
-  id: string
+  id: number
 
   @Column()
   time: Date
@@ -26,7 +26,7 @@ export class MealEntity {
   status: MealStatus
 
   @CreateDateColumn()
-  createAt: Date
+  createdAt: Date
 
   @UpdateDateColumn()
   updatedAt: Date

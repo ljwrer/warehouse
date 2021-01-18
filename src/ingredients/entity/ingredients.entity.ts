@@ -10,18 +10,22 @@ import { Unit } from '../enum/ingredients.enum'
 @Entity({
   name: 'ingredients',
   orderBy: {
-    createdAt: 'ASC',
+    updatedAt: 'DESC',
   },
 })
 @Unique(['name'])
 export class IngredientsEntity {
   @PrimaryGeneratedColumn()
-  id: string
+  id: number
 
   @Column()
   name: string
 
-  @Column()
+  @Column({
+    type: 'enum',
+    enum: Unit,
+    default: Unit.kg,
+  })
   unit: Unit
 
   @Column({ default: false })
@@ -31,7 +35,7 @@ export class IngredientsEntity {
   period: number
 
   @CreateDateColumn()
-  createAt: Date
+  createdAt: Date
 
   @UpdateDateColumn()
   updatedAt: Date

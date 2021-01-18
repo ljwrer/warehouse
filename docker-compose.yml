@@ -4,17 +4,23 @@ services:
     #构建mysql镜像
     image: mysql
     container_name: mysql-db # 容器名
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci #设置utf8字符集
+    command: [
+        '--character-set-server=utf8mb4', #设置数据库表的数据集
+        '--collation-server=utf8mb4_unicode_ci', #设置数据库表的数据集
+        '--default-time-zone=+8:00', #设置mysql数据库的 时区问题
+      ]
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root #root管理员用户密码
-      MYSQL_USER: test   #创建test用户
-      MYSQL_PASSWORD: test  #设置test用户的密码
+      MYSQL_ROOT_PASSWORD: rootpass #root管理员用户密码
+      MYSQL_USER: ray #创建test用户
+      MYSQL_PASSWORD: raypass #设置test用户的密码
       MYSQL_DATABASE: ware
+      CONTAINER_TIMEZONE: Asia/Shanghai #容器时区
+
     ports:
-      - '3307:3306'  #host物理直接映射端口为3306
+      - '3307:3306' #host物理直接映射端口为3306
     volumes:
       #mysql数据库挂载到host物理机目录/e/docker/mysql/data/db
-      - "./data/db:/var/lib/mysql"
+      - './data/db:/var/lib/mysql'
       #容器的配置目录挂载到host物理机目录/e/docker/mysql/data/conf
-      - "./data/conf:/etc/mysql/conf.d"
+      - './data/conf:/etc/mysql/conf.d'

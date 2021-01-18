@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator'
 
 export class BaseRecipeDto {
-  readonly id: string
+  readonly id: number
   @IsNotEmpty()
   @IsString()
   readonly name: string
