@@ -1,4 +1,4 @@
-export interface Channel {
+export interface ChannelDto {
   name: string
   price: number
   url?: string

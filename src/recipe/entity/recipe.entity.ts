@@ -6,6 +6,7 @@ import {
   Unique,
   UpdateDateColumn,
 } from 'typeorm'
+import { CreateRecipeDto } from '../dto/create-recipe.dto'
 @Entity({
   name: 'recipe',
   orderBy: {
@@ -32,4 +33,8 @@ export class RecipeEntity {
 
   @UpdateDateColumn()
   updatedAt: Date
+
+  constructor(createRecipeDto?: CreateRecipeDto) {
+    Object.assign(this, createRecipeDto)
+  }
 }

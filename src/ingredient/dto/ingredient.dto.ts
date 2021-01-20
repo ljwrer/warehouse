@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator'
-import { Unit } from '../enum/ingredients.enum'
-import { Channel } from '../interface/ingredients.interface'
-export class IngredientsDto {
+import { Unit } from '../enum/ingredient.enum'
+import { ChannelDto } from './channel.dto'
+export class IngredientDto {
   readonly id?: number
   @IsNotEmpty()
   @IsString()
@@ -9,5 +9,5 @@ export class IngredientsDto {
   period: number
   readonly unit: Unit
   readonly isSeasoning: boolean
-  channels: Channel[]
+  channels: ChannelDto[]
 }

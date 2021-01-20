@@ -1,4 +1,4 @@
-import { Unit } from '../../ingredients/enum/ingredients.enum'
+import { Unit } from '../../ingredient/enum/ingredient.enum'
 
 export interface RecipeIngredients {
   id: number

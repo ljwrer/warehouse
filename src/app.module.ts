@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { typeOrmModule } from './config/typeorm'
-import { IngredientsModule } from './ingredients/ingredients.module'
+import { databaseModule } from './db/database.module'
+import { IngredientModule } from './ingredient/ingredient.module'
 
 @Module({
-  imports: [typeOrmModule, IngredientsModule],
+  imports: [databaseModule, IngredientModule],
   controllers: [AppController],
   providers: [AppService],
 })

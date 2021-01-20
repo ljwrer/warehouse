@@ -1,48 +1,73 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { getMongoRepository } from 'typeorm'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { ChannelEntity } from '../ingredients/entity/channel.entity'
 import { IngredientsEntity } from '../ingredients/entity/ingredients.entity'
 import { CreateRecipeDto } from './dto/create-recipe.dto'
-import { RecipeResponseDto } from './dto/recipe-response.dto'
+import { RecipeIngredientsEntity } from './entity/recipe-ingredients.entity'
 import { RecipeEntity } from './entity/recipe.entity'
-import { RecipeIngredientsResponse } from './interface/recipe.interface'
 
 @Injectable()
 export class RecipeService {
+  constructor(
+    @InjectRepository(RecipeEntity)
+    private readonly recipeRepository: Repository<RecipeEntity>,
+    @InjectRepository(RecipeIngredientsEntity)
+    private readonly recipeIngredientsRepository: Repository<RecipeIngredientsEntity>,
+    @InjectRepository(IngredientsEntity)
+    private readonly ingredientsEntity: Repository<IngredientsEntity>,
+  ) {}
   async getAll() {
-    // const recipeList = await getMongoRepository(RecipeEntity).find()
-    // const recipeDtoList: RecipeResponseDto[] = []
-    // for (const recipe of recipeList) {
-    //   const { ingredients } = recipe
-    //   const recipeIngredientsResponseList: RecipeIngredientsResponse[] = []
-    //   for (const ingredient of ingredients) {
-    //     const { id } = ingredient
-    //     const ingredientsData = await getMongoRepository(
-    //       IngredientsEntity,
-    //     ).findOne(id)
-    //     recipeIngredientsResponseList.push({
-    //       ...ingredientsData,
-    //       ...ingredient,
-    //     })
-    //   }
-    //   recipeDtoList.push({
-    //     ...recipe,
-    //     ingredients: recipeIngredientsResponseList,
-    //   })
-    // }
-    // return recipeDtoList
+    return this.recipeRepository
+      .createQueryBuilder('recipe')
+      .leftJoinAndMapMany(
+        'recipe.ingredients',
+        RecipeIngredientsEntity,
+        'recipeIngredients',
+        'recipe.id = recipeIngredients.recipeId',
+      )
+      .leftJoinAndMapMany(
+        'recipe.ingredients',
+        IngredientsEntity,
+        'ingredients',
+        'recipeIngredients.ingredientId = ingredients.id',
+      )
+      .leftJoinAndMapMany(
+        'recipe.x.channels',
+        ChannelEntity,
+        'channel',
+        'channel.ingredientId = ingredients.id',
+      )
+      .getMany()
   }
 
-  async insert(ingredientsDto: CreateRecipeDto) {
-    // return getMongoRepository(RecipeEntity).save(
-    //   new RecipeEntity(ingredientsDto),
-    // )
+  async insert(createRecipeDto: CreateRecipeDto) {
+    const recipe = new RecipeEntity(createRecipeDto)
+    const ingredientsList = createRecipeDto.ingredients
+    const ingredientsEntityList = await this.ingredientsEntity.findByIds(
+      ingredientsList,
+    )
+    const { id } = await this.recipeRepository.save(recipe)
+    const recipeIngredientsEntityList = ingredientsList.map(
+      (ingredients, index) => {
+        const recipeId = id
+        const ingredientsId = ingredientsEntityList[index].id
+        const amount = ingredients.amount
+        return new RecipeIngredientsEntity({
+          amount,
+          recipeId,
+          ingredientsId,
+        })
+      },
+    )
+    await this.recipeIngredientsRepository.save(recipeIngredientsEntityList)
   }
 
   async update(recipeDto: CreateRecipeDto) {
-    // const { id } = recipeDto
-    // if (!id) {
-    //   throw new NotFoundException('id is empty')
-    // }
+    const { id } = recipeDto
+    if (!id) {
+      throw new NotFoundException('id is empty')
+    }
     // const mongo = getMongoRepository(RecipeEntity)
     // const foundRecipe = await mongo.findOne(id)
     // if (!foundRecipe) {

@@ -12,7 +12,7 @@ import {
     createdAt: 'ASC',
   },
 })
-export class RecipeEntity {
+export class RecipeIngredientsEntity {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -30,4 +30,8 @@ export class RecipeEntity {
 
   @UpdateDateColumn()
   updatedAt: Date
+
+  constructor(partial?: Partial<RecipeIngredientsEntity>) {
+    Object.assign(this, partial)
+  }
 }
