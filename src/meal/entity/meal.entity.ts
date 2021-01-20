@@ -1,33 +1,21 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm'
+import { Model, Column, HasMany } from 'sequelize-typescript'
+import { Recipe } from '../../recipe/entity/recipe.entity'
 import { MealStatus, MealType } from '../enum/menu.enum'
-@Entity({
-  name: 'meal',
-  orderBy: {
-    createdAt: 'ASC',
-  },
-})
-export class MealEntity {
-  @PrimaryGeneratedColumn()
-  id: number
 
-  @Column()
-  time: Date
+export class Meal extends Model {
+  @Column
+  cookDate: Date
 
-  @Column()
+  @Column
   type: MealType
 
-  @Column()
+  @Column
   status: MealStatus
 
-  @CreateDateColumn()
-  createdAt: Date
-
-  @UpdateDateColumn()
-  updatedAt: Date
+  @HasMany(() => Recipe, {
+    constraints: false,
+    foreignKey: 'mealId',
+    sourceKey: 'id',
+  })
+  recipes: Recipe[]
 }

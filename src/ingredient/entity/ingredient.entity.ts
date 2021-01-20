@@ -1,4 +1,11 @@
-import { Column, HasMany, Model, Table, Unique } from 'sequelize-typescript'
+import {
+  Column,
+  Default,
+  HasMany,
+  Model,
+  Table,
+  Unique,
+} from 'sequelize-typescript'
 import { Unit } from '../enum/ingredient.enum'
 import { Channel } from './channel.entity'
 
@@ -11,8 +18,9 @@ export class Ingredient extends Model {
   @Column
   unit: Unit
 
+  @Default(false)
   @Column
-  isSeasoning: boolean = false
+  isSeasoning: boolean
 
   @Column
   period: number

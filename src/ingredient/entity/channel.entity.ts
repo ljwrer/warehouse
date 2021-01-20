@@ -1,5 +1,4 @@
-import { Table, Column, Model, DataType, BelongsTo } from 'sequelize-typescript'
-import { Ingredient } from './ingredient.entity'
+import { Table, Column, Model, DataType, Default } from 'sequelize-typescript'
 
 @Table({
   timestamps: false,
@@ -11,16 +10,10 @@ export class Channel extends Model {
   @Column(DataType.DECIMAL(19, 2))
   price: number
 
+  @Default('')
   @Column
-  url: string = ''
+  url: string
 
   @Column
   ingredientId: number
-
-  @BelongsTo(() => Ingredient, {
-    constraints: false,
-    foreignKey: 'ingredientId',
-    targetKey: 'id',
-  })
-  ingredient: Ingredient
 }

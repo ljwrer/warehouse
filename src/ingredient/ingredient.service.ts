@@ -50,7 +50,6 @@ export class IngredientService {
       throw new NotFoundException("ingredient doesn't exist")
     }
     await this.removeUnUsedChannel(ingredientDto)
-    console.log('dto channels', ingredientDto.channels)
     await this.upsertChannel(id, ingredientDto.channels)
     Object.assign(ingredient, ingredientDto)
     await ingredient.save()

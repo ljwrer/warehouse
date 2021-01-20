@@ -8,7 +8,7 @@ import { Unit } from './enum/ingredient.enum'
 import { IngredientController } from './ingredient.controller'
 import { IngredientService } from './ingredient.service'
 
-describe('AppController', () => {
+describe('IngredientController', () => {
   let ingredientController: IngredientController
 
   beforeAll(async () => {

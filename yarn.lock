@@ -1354,6 +1354,11 @@ append-field@^1.0.0:
   resolved "http://npm.chanfine.com/append-field/-/append-field-1.0.0.tgz#1e3440e915f0b1203d23748e78edd7b9b5b43e56"
   integrity sha1-HjRA6RXwsSA9I3SOeO3XubW0PlY=
 
+arch@^2.1.1:
+  version "2.2.0"
+  resolved "http://npm.chanfine.com/arch/-/arch-2.2.0.tgz#1bc47818f305764f23ab3306b0bfc086c5a29d11"
+  integrity sha1-G8R4GPMFdk8jqzMGsL/AhsWinRE=
+
 arg@^4.1.0:
   version "4.1.3"
   resolved "http://npm.chanfine.com/arg/-/arg-4.1.3.tgz#269fc7ad5b8e42cb63c896d5666017261c144089"
@@ -1842,6 +1847,15 @@ cli-width@^3.0.0:
   version "3.0.0"
   resolved "http://npm.chanfine.com/cli-width/-/cli-width-3.0.0.tgz#a2f48437a2caa9a22436e794bf071ec9e61cedf6"
   integrity sha1-ovSEN6LKqaIkNueUvwceyeYc7fY=
+
+clipboardy@^2.3.0:
+  version "2.3.0"
+  resolved "http://npm.chanfine.com/clipboardy/-/clipboardy-2.3.0.tgz#3c2903650c68e46a91b388985bc2774287dba290"
+  integrity sha1-PCkDZQxo5GqRs4iYW8J3QofbopA=
+  dependencies:
+    arch "^2.1.1"
+    execa "^1.0.0"
+    is-wsl "^2.1.1"
 
 cliui@^6.0.0:
   version "6.0.0"
@@ -3400,7 +3414,7 @@ is-windows@^1.0.2:
   resolved "http://npm.chanfine.com/is-windows/-/is-windows-1.0.2.tgz#d1850eb9791ecd18e6182ce12a30f396634bb19d"
   integrity sha1-0YUOuXkezRjmGCzhKjDzlmNLsZ0=
 
-is-wsl@^2.2.0:
+is-wsl@^2.1.1, is-wsl@^2.2.0:
   version "2.2.0"
   resolved "http://npm.chanfine.com/is-wsl/-/is-wsl-2.2.0.tgz#74a4c76e77ca9fd3f932f290c17ea326cd157271"
   integrity sha1-dKTHbnfKn9P5MvKQwX6jJs0VcnE=

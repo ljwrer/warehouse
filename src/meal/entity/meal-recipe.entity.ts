@@ -1,29 +1,12 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm'
-@Entity({
-  name: 'meal-recipe',
-  orderBy: {
-    createdAt: 'ASC',
-  },
-})
-export class MealRecipeEntity {
-  @PrimaryGeneratedColumn()
-  id: number
+import { Model, Column, Table } from 'sequelize-typescript'
 
-  @Column()
+@Table({
+  timestamps: false,
+})
+export class MealRecipe extends Model {
+  @Column
   mealId: number
 
-  @Column()
+  @Column
   recipeId: number
-
-  @CreateDateColumn()
-  createdAt: Date
-
-  @UpdateDateColumn()
-  updatedAt: Date
 }

@@ -1,40 +1,34 @@
 import {
+  BelongsToMany,
   Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
+  Default,
+  Model,
+  Table,
   Unique,
-  UpdateDateColumn,
-} from 'typeorm'
-import { CreateRecipeDto } from '../dto/create-recipe.dto'
-@Entity({
-  name: 'recipe',
-  orderBy: {
-    createdAt: 'ASC',
-  },
-})
-@Unique(['name'])
-export class RecipeEntity {
-  @PrimaryGeneratedColumn()
-  id: number
+} from 'sequelize-typescript'
+import { Ingredient } from '../../ingredient/entity/ingredient.entity'
+import { RecipeIngredient } from './recipe-ingredient.entity'
 
-  @Column()
+@Table
+export class Recipe extends Model {
+  @Unique
+  @Column
   name: string
 
-  @Column()
+  @Default('')
+  @Column
   url: string
 
   // markdown
-  @Column()
+  @Default('')
+  @Column
   text: string
 
-  @CreateDateColumn()
-  createdAt: Date
-
-  @UpdateDateColumn()
-  updatedAt: Date
-
-  constructor(createRecipeDto?: CreateRecipeDto) {
-    Object.assign(this, createRecipeDto)
-  }
+  @BelongsToMany(() => Ingredient, {
+    constraints: false,
+    foreignKey: 'recipeId',
+    sourceKey: 'id',
+    through: () => RecipeIngredient,
+  })
+  ingredients: Ingredient[]
 }

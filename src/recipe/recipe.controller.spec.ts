@@ -1,14 +1,15 @@
+import { SequelizeModule } from '@nestjs/sequelize'
 import { Test } from '@nestjs/testing'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { getRepository, Repository } from 'typeorm'
-import { typeOrmModule } from '../config/typeorm'
-import { IngredientsEntity } from '../ingredients/entity/ingredients.entity'
-import { RecipeIngredientsEntity } from './entity/recipe-ingredients.entity'
-import { RecipeEntity } from './entity/recipe.entity'
+import { databaseModule } from '../db/database.module'
+import { Channel } from '../ingredient/entity/channel.entity'
+import { Ingredient } from '../ingredient/entity/ingredient.entity'
+import { logJSONStr } from '../util/test/test'
+import { RecipeIngredient } from './entity/recipe-ingredient.entity'
+import { Recipe } from './entity/recipe.entity'
 import { RecipeController } from './recipe.controller'
 import { RecipeService } from './recipe.service'
 
-describe('AppController', () => {
+describe('RecipeController', () => {
   let recipeController: RecipeController
 
   beforeAll(async () => {
@@ -16,11 +17,12 @@ describe('AppController', () => {
       controllers: [RecipeController],
       providers: [RecipeService],
       imports: [
-        typeOrmModule,
-        TypeOrmModule.forFeature([
-          RecipeEntity,
-          RecipeIngredientsEntity,
-          IngredientsEntity,
+        databaseModule,
+        SequelizeModule.forFeature([
+          Recipe,
+          RecipeIngredient,
+          Ingredient,
+          Channel,
         ]),
       ],
     }).compile()
@@ -29,22 +31,27 @@ describe('AppController', () => {
   })
 
   describe('create', () => {
-    it('create 1 recipe', async () => {
-      const ingredientsRepo: Repository<IngredientsEntity> = getRepository<IngredientsEntity>(
-        IngredientsEntity,
-      )
-      const { id: beefId } = await ingredientsRepo.findOne({
-        name: '牛肉',
-      })
-      const { id: parsleyId } = await ingredientsRepo.findOne({
-        name: '香菜',
-      })
+    beforeAll(async () => {
+      await Recipe.truncate()
+      await RecipeIngredient.truncate()
+    })
 
+    it('create 1 recipe', async () => {
+      const { id: beefId } = await Ingredient.findOne({
+        where: {
+          name: '牛肉',
+        },
+      })
+      const { id: parsleyId } = await Ingredient.findOne({
+        where: {
+          name: '香菜',
+        },
+      })
       const result = await recipeController.create({
         ingredients: [
           {
             id: beefId,
-            amount: 0.2,
+            amount: 200,
           },
           {
             id: parsleyId,
@@ -55,7 +62,7 @@ describe('AppController', () => {
         url: 'http://www.bilibili.com/abc',
         name: '香菜牛肉',
       })
-      console.log(result)
+      logJSONStr(result)
     })
   })
 
