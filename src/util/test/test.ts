@@ -1,10 +1,14 @@
 import { writeSync } from 'clipboardy'
 
 export const log = (data: any) => {
-  if (data.toJSON) {
-    console.log(data.toJSON())
-  } else {
-    console.log(JSON.stringify(data, null, 2))
+  try {
+    if (Reflect.has(data, 'toJSON')) {
+      console.log(data.toJSON())
+    } else {
+      console.log(JSON.stringify(data, null, 2))
+    }
+  } catch (e) {
+    console.log(data)
   }
 }
 

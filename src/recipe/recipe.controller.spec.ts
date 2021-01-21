@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing'
 import { databaseModule } from '../db/database.module'
 import { Channel } from '../ingredient/entity/channel.entity'
 import { Ingredient } from '../ingredient/entity/ingredient.entity'
-import { log, logJSONStr } from '../util/test/test'
+import { copy, log, logJSONStr } from '../util/test/test'
 import { RecipeIngredient } from './entity/recipe-ingredient.entity'
 import { Recipe } from './entity/recipe.entity'
 import { RecipeController } from './recipe.controller'
@@ -73,16 +73,15 @@ describe('RecipeController', () => {
     })
   })
 
-  // describe('update', () => {
-  //   it('update first ingredients period', async () => {
-  //     const allIngredients = await ingredientsController.findAll()
-  //     const ingredients = (allIngredients[0] as any) as IngredientDto
-  //     ingredients.period = ingredients.period + 1
-  //     const channel = ingredients.channels[0]
-  //     channel.price = channel.price + 1
-  //     console.log(ingredients)
-  //     const result = await ingredientsController.update(ingredients as any)
-  //     console.log(result)
-  //   })
-  // })
+  describe('update', () => {
+    it('update first recipe amount', async () => {
+      const allRecipes = await recipeController.findAll()
+      const firstRecipe = copy(allRecipes[0])
+      firstRecipe.ingredients.forEach((ingredient) => {
+        ingredient.amount++
+      })
+      const result = await recipeController.update(firstRecipe)
+      log(result)
+    })
+  })
 })
