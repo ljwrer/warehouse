@@ -1,4 +1,12 @@
-import { Table, Column, Model, DataType, Default } from 'sequelize-typescript'
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  Default,
+  ForeignKey,
+} from 'sequelize-typescript'
+import { Ingredient } from './ingredient.entity'
 
 @Table({
   timestamps: false,
@@ -14,6 +22,6 @@ export class Channel extends Model {
   @Column
   url: string
 
-  @Column
+  @ForeignKey(() => Ingredient)
   ingredientId: number
 }

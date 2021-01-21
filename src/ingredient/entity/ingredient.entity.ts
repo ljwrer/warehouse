@@ -27,8 +27,6 @@ export class Ingredient extends Model {
 
   @HasMany(() => Channel, {
     constraints: false,
-    foreignKey: 'ingredientId',
-    sourceKey: 'id',
   })
   channels: Channel[]
 }

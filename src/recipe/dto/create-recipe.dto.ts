@@ -1,5 +1,5 @@
-import { RecipeIngredients } from '../interface/recipe.interface'
 import { BaseRecipeDto } from './base-recipe.dto'
+import { RecipeIngredientDto } from './recipe-ingredient.dto'
 export class CreateRecipeDto extends BaseRecipeDto {
-  readonly ingredients: RecipeIngredients[]
+  readonly ingredients: RecipeIngredientDto[]
 }

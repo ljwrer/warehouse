@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
-import { Op } from 'sequelize'
-import { FindOptions } from 'sequelize/types/lib/model'
+import { Op, FindOptions } from 'sequelize'
 import { ChannelDto } from './dto/channel.dto'
 import { IngredientDto } from './dto/ingredient.dto'
 import { Channel } from './entity/channel.entity'

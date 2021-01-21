@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing'
 import { databaseModule } from '../db/database.module'
 import { Channel } from '../ingredient/entity/channel.entity'
 import { Ingredient } from '../ingredient/entity/ingredient.entity'
-import { logJSONStr } from '../util/test/test'
+import { log, logJSONStr } from '../util/test/test'
 import { RecipeIngredient } from './entity/recipe-ingredient.entity'
 import { Recipe } from './entity/recipe.entity'
 import { RecipeController } from './recipe.controller'
@@ -28,6 +28,13 @@ describe('RecipeController', () => {
     }).compile()
 
     recipeController = recipeModuleRef.get<RecipeController>(RecipeController)
+  })
+
+  describe('find all', () => {
+    it('should return all recipe', async () => {
+      const result = await recipeController.findAll()
+      log(result)
+    })
   })
 
   describe('create', () => {
